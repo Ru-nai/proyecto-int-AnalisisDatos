@@ -10,3 +10,4 @@ arreglo_edades = np.array(lista_edades)
 promedio_edades = round(np.mean(lista_edades), 2)
 
 print(f"Promedio de edad de los participantes: {promedio_edades} años")
+

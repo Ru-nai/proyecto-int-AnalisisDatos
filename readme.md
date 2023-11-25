@@ -4,6 +4,7 @@ El proyecto de este curso consiste en analizar el conjunto de datos introducido 
 procesarlo, limpiarlo y finalmente ajustar modelos de machine learning 
 para realizar predicciones sobre estos datos.
 
+
 ---- PARTE 1 ----
 
 Para el desarrollo de esta etapa del proyecto necesitamos intalar la librería datasets de Huggingface
@@ -27,3 +28,12 @@ Las 13 características clínicas incluidas en el conjunto de datos son:
 11. Fumar: si el paciente fuma o no (booleano)
 12. Tiempo: período de seguimiento (días)
 13. [Objetivo] Evento de fallecimiento: si el paciente falleció durante el período de seguimiento (booleano)
+
+
+---- PARTE 2 ---- 
+
+Continuando con la anterior sección del proyecto integrador, ahora debes realizar lo siguiente:
+
+1. Convertir la estructura Dataset en un DataFrame de Pandas usando pd.DataFrame.
+2. Separar el dataframe en dos diferentes, uno conteniendo las filas con personas que perecieron (is_dead=1) y otro con el complemento.
+3. Calcular los promedios de las edades de cada dataset e imprimir.
