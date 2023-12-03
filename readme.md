@@ -45,3 +45,13 @@ Continuando con el DataFrame con todos los datos de la anterior subsección, aho
 
 1. Verificar que los tipos de datos son correctos en cada colúmna (por ejemplo que no existan colúmnas numéricas en formato de cadena).
 2. Calcular la cantidad de hombres fumadores vs mujeres fumadoras (usando agregaciones en Pandas).
+
+
+---- PROYECTO INTEGRADOR PARTE 4 ----
+
+Imagina que no tuvieramos el acceso fácil de estos datos a través de la librería y tuvieramos que descargar los datos usando requests.
+
+Los datos son accesibles en esta dirección: https://huggingface.co/datasets/mstz/heart_failure/raw/main/heart_failure_clinical_records_dataset.csv
+
+1. Realiza un GET request para descargarlos y escribe la respuesta como un archivo de texto plano con extensión csv (no necesitas pandas para esto, sólo manipulación de archivos nativa de Python)
+2. Agrupa el código para esto en una función reutilizable que reciba como argumento la url.

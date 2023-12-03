@@ -63,5 +63,4 @@ print(f"La cantidad de mujeres fumadoras es: {cuenta_mujer_fumador}")
 separador()
 separador()
 
-
-    
+print(' --- PROYECTO INTEGRADOR PARTE 4 --- ')
