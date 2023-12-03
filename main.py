@@ -1,6 +1,7 @@
 from datasets import load_dataset
 import numpy as np
 import pandas as pd #PT2
+import requests #PT4
 
 def separador():
     print("===============================================================================================================================================")
@@ -64,3 +65,21 @@ separador()
 separador()
 
 print(' --- PROYECTO INTEGRADOR PARTE 4 --- ')
+
+def descarga_get_request (url, salida_archivo):
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        with open(salida_archivo, 'w', encoding='utf-8') as file:
+            file.write(response.text)
+        print(f"Los datos se han guardado en {salida_archivo}")
+    else:
+        print(f"No se pudo almacenar los datos. Código de respuesta: {response.status_code}")
+
+
+url = "https://huggingface.co/datasets/mstz/heart_failure/raw/main/heart_failure_clinical_records_dataset.csv"
+salida_archivo = "heart_failure_clinical_records_dataset.csv"
+descarga_get_request(url, salida_archivo)
+separador()
+separador()
+
