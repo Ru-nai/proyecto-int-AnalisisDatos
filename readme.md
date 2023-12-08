@@ -55,3 +55,22 @@ Los datos son accesibles en esta dirección: https://huggingface.co/datasets/mst
 
 1. Realiza un GET request para descargarlos y escribe la respuesta como un archivo de texto plano con extensión csv (no necesitas pandas para esto, sólo manipulación de archivos nativa de Python)
 2. Agrupa el código para esto en una función reutilizable que reciba como argumento la url.
+
+
+---- PROYECTO INTEGRADOR PARTE 5 ----
+
+Una vez cargado el csv mediante el request anterior, realiza lo siguiente:
+
+1. Verificar que no existan valores faltantes
+2. Verificar que no existan filas repetidas
+3. Verificar si existen valores atípicos y eliminarlos
+4. Crear una columna que categorice por edades
+    - 0-12: Niño
+    - 13-19: Adolescente
+    - 20-39: Jóvenes adulto
+    - 40-59: Adulto
+    - 60-...: Adulto mayor
+5. Guardar el resultado como csv
+
+Encapsula toda la lógica anterior en una función que reciba un dataframe como entrada.
+

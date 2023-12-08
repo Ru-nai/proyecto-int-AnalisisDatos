@@ -83,3 +83,38 @@ descarga_get_request(url, salida_archivo)
 separador()
 separador()
 
+print(' --- PROYECTO INTEGRADOR PARTE 5 --- ')
+
+def procesar_dataframe(df):
+    # 1. Verificar que no existan valores faltantes
+    if df.isnull().values.any():
+        print("Existen valores faltantes en el DataFrame. Se eliminarán las filas con valores faltantes.")
+        df = df.dropna()  # Elimina filas con valores faltantes
+
+    # 2. Verificar que no existan filas repetidas
+    if df.duplicated().any():
+        print("Existen filas duplicadas en el DataFrame. Se eliminarán las filas duplicadas.")
+        df = df.drop_duplicates()  # Elimina filas duplicadas
+
+    # 3. Verificar si existen valores atípicos y eliminarlos (puedes adaptar según tus necesidades)
+    # Supongamos que quieres eliminar valores atípicos en la columna 'age' usando el rango intercuartílico
+    Q1 = df['age'].quantile(0.25)
+    Q3 = df['age'].quantile(0.75)
+    IQR = Q3 - Q1
+    df = df[(df['age'] >= Q1 - 1.5 * IQR) & (df['age'] <= Q3 + 1.5 * IQR)]
+
+    # 4. Crear una columna que categorice por edades
+    bins = [0, 12, 19, 39, 59, float('inf')]
+    labels = ['Niño', 'Adolescente', 'Jóvenes adulto', 'Adulto', 'Adulto mayor']
+    df['edad_categorizada'] = pd.cut(df['age'], bins=bins, labels=labels, right=False)
+
+    # 5. Guardar el resultado como csv
+    resultado_csv = "resultado_proyecto_integrador.csv"
+    df.to_csv(resultado_csv, index=False)
+    print(f"El resultado se ha guardado como {resultado_csv}")
+
+# Carga el nuevo dataframe desde el archivo descargado
+nuevo_dataframe = pd.read_csv("heart_failure_clinical_records_dataset.csv")
+
+# Llama a la función con el nuevo dataframe
+procesar_dataframe(nuevo_dataframe)
