@@ -74,3 +74,17 @@ Una vez cargado el csv mediante el request anterior, realiza lo siguiente:
 
 Encapsula toda la lógica anterior en una función que reciba un dataframe como entrada.
 
+
+---- PROYECTO INTEGRADOR PARTE 6 ----
+
+Imagina que los datos que procesaste en anteriores etapas del proyecto integrador se van actualizando cada cierto tiempo, (manteniendo el formato) y la url siempre va apuntando a la versión más actual, en este caso conviene tener automatizado el procesamiento en un script que pedas llamar y siempre te dé un csv limpio y listo para su análisis.
+
+Tu tarea en esta etapa del proyecto consiste en crear un script (un archivo .py) que realice todas las operaciones vistas hasta ahora (desde el módulo de APIS) que al ejecutarse:
+
+    - Descargue los datos desde una url
+    - Convierta todo a un dataframe
+    - Categorice en grupos
+    - Exporte un csv resultante
+
+La url no debe estar definida como una constante en el código, en su lugar usa argumentos por terminal (revisar este enlace: https://www.geeksforgeeks.org/how-to-use-sys-argv-in-python/) para enviarle la url al programa al ejecutarlo.
+
