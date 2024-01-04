@@ -160,7 +160,7 @@ if __name__ == "__main__":
     resultado = pd.read_csv("resultado_proyecto_int_PT5.csv")
 
     # 1. Gráfica de distribución de edades
-    print("--- GRÁFICA DE DISTRIBUCIÓN DE EDADES ---")
+    print("--- PROYECTO PT7: GRÁFICA DE DISTRIBUCIÓN DE EDADES ---")
     plt.figure(figsize=(10, 6))
     plt.hist(resultado['age'], bins=6, color='skyblue', edgecolor='black')
     plt.title('Distribución de Edades')
@@ -170,7 +170,7 @@ if __name__ == "__main__":
     plt.show()
 
     # 2. Histogramas agrupados por hombre / mujer
-    print("--- HISTOGRAMAS AGRUPADOS POR HOMBRE Y MUJER ---")
+    print("--- PROYECTO PT7: HISTOGRAMAS AGRUPADOS POR HOMBRE Y MUJER ---")
     # Filtrar datos por género
     data_hombres = resultado[resultado['sex'] == 1]
     data_mujeres = resultado[resultado['sex'] == 0]
@@ -193,4 +193,43 @@ if __name__ == "__main__":
     plt.xticks([-0.6, 1.6, 3.8, 6], ['Anémicos', 'Diabéticos', 'Fumadores', 'Muertos'])
     plt.legend()
 
+    plt.show()
+
+    print("--- PROYECTO PT8: GRÁFICOS DE TORTA / DISTRIBUCIONES ---")
+    # Mapeo de valores
+    etiqueta_si_no = {0: 'No', 1: 'Sí'}
+    etiqueta_si_no_TF = {False: 'No', True: 'Sí'}
+
+    # Reemplazar valores en las columnas
+    resultado['anaemia'] = resultado['anaemia'].map(etiqueta_si_no)
+    resultado['diabetes'] = resultado['diabetes'].map(etiqueta_si_no)
+    resultado['smoking'] = resultado['smoking'].map(etiqueta_si_no)
+    resultado['DEATH_EVENT'] = resultado['DEATH_EVENT'].map(etiqueta_si_no_TF)
+
+    # Filtrar datos por categoría
+    cantidad_anemicos = resultado['anaemia'].value_counts()
+    cantidad_diabeticos = resultado['diabetes'].value_counts()
+    cantidad_fumadores = resultado['smoking'].value_counts()
+    cantidad_muertos = resultado['DEATH_EVENT'].value_counts()
+
+    # Configurar la figura con subplots
+    fig, axs = plt.subplots(2, 2, figsize=(12, 10))
+
+    # Gráfica de torta para anémicos
+    axs[0, 0].pie(cantidad_anemicos, labels=cantidad_anemicos.index, autopct='%1.1f%%', startangle=90, colors=['skyblue', 'plum'])
+    axs[0, 0].set_title('Anémicos')
+
+    # Gráfica de torta para diabéticos
+    axs[0, 1].pie(cantidad_diabeticos, labels=cantidad_diabeticos.index, autopct='%1.1f%%', startangle=90, colors=['skyblue', 'plum'])
+    axs[0, 1].set_title('Diabéticos')
+
+    # Gráfica de torta para fumadores
+    axs[1, 0].pie(cantidad_fumadores, labels=cantidad_fumadores.index, autopct='%1.1f%%', startangle=90, colors=['skyblue', 'plum'])
+    axs[1, 0].set_title('Fumadores')
+
+    # Gráfica de torta para muertos
+    axs[1, 1].pie(cantidad_muertos, labels=cantidad_muertos.index, autopct='%1.1f%%', startangle=90, colors=['skyblue', 'plum'])
+    axs[1, 1].set_title('Muertos')
+
+    plt.tight_layout()
     plt.show()
