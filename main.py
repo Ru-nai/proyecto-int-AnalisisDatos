@@ -3,6 +3,8 @@ import numpy as np
 import pandas as pd #PT2
 import requests #PT4
 import sys #PT6
+import matplotlib.pyplot as plt #PT7
+import seaborn as sns #PT7
 
 
 def separate():
@@ -64,7 +66,7 @@ def procesar_dataframe_proyecto_pt2(df):
 def procesar_dataframe_proyecto_pt3(dataframe):
     print(' --- PROYECTO INTEGRADOR PARTE 3 --- ')
 
-    palabras_clave_muerte = ['death', 'dead']  # Agregar esta línea
+    palabras_clave_muerte = ['death', 'dead']  
 
     tipo_de_datos = dataframe.dtypes
     print(f"El tipo de dato de cada columna es: \n", tipo_de_datos)
@@ -154,4 +156,41 @@ cargar_dataset_proyecto_pt1()
 if __name__ == "__main__":
     #Solicita la URL al usuario por la consola
     url_descarga_pt6 = sys.argv[1] if len(sys.argv) > 1 else input("Por favor, ingrese la URL de los datos: ")
-    procesar_dataframe_proyecto_pt6(url_descarga_pt6)    #Procesa los nuevos datos obtenidos de la URL
+    procesar_dataframe_proyecto_pt6(url_descarga_pt6)    
+    resultado = pd.read_csv("resultado_proyecto_int_PT5.csv")
+
+    # 1. Gráfica de distribución de edades
+    print("--- GRÁFICA DE DISTRIBUCIÓN DE EDADES ---")
+    plt.figure(figsize=(10, 6))
+    plt.hist(resultado['age'], bins=6, color='skyblue', edgecolor='black')
+    plt.title('Distribución de Edades')
+    plt.xlabel('Edad')
+    plt.ylabel('Frecuencia')
+    plt.grid(axis='y', alpha=0.75)
+    plt.show()
+
+    # 2. Histogramas agrupados por hombre / mujer
+    print("--- HISTOGRAMAS AGRUPADOS POR HOMBRE Y MUJER ---")
+    # Filtrar datos por género
+    data_hombres = resultado[resultado['sex'] == 1]
+    data_mujeres = resultado[resultado['sex'] == 0]
+
+    # Configurar la figura
+    plt.figure(figsize=(15, 10))
+
+    # Anémicos
+    plt.bar([-1, -0.2], [data_hombres['anaemia'].sum(), data_mujeres['anaemia'].sum()], color=['blue', 'red'], width=0.8, label=['Hombres', 'Mujeres'])
+    # Diabéticos
+    plt.bar([1.2, 2], [data_hombres['diabetes'].sum(), data_mujeres['diabetes'].sum()], color=['blue', 'red'], width=0.8, label=['Hombres', 'Mujeres'])
+    # Fumadores
+    plt.bar([3.4, 4.2], [data_hombres['smoking'].sum(), data_mujeres['smoking'].sum()], color=['blue', 'red'], width=0.8, label=['Hombres', 'Mujeres'])
+    # Muertos
+    plt.bar([5.6, 6.4], [data_hombres['DEATH_EVENT'].sum(), data_mujeres['DEATH_EVENT'].sum()], color=['blue', 'red'], width=0.8, label=['Hombres', 'Mujeres'])
+
+    plt.title('Cantidad por categoría y género')
+    plt.xlabel('Categoría')
+    plt.ylabel('Cantidad')
+    plt.xticks([-0.6, 1.6, 3.8, 6], ['Anémicos', 'Diabéticos', 'Fumadores', 'Muertos'])
+    plt.legend()
+
+    plt.show()
