@@ -88,3 +88,33 @@ Tu tarea en esta etapa del proyecto consiste en crear un script (un archivo .py)
 
 La url no debe estar definida como una constante en el código, en su lugar usa argumentos por terminal (revisar este enlace: https://www.geeksforgeeks.org/how-to-use-sys-argv-in-python/) para enviarle la url al programa al ejecutarlo.
 
+
+---- PROYECTO INTEGRADOR PARTE 7 ----
+
+Una vez tenemos los datos exportados por nuestro script de ETL, podemos proceder a realizar gráficas de análisis. En esta etapa del proyecto usa matplotlib para:
+
+1. Graficar la distribución de edades con un histograma
+2. Graficar histogramas agrupado por hombre y mujer:
+    - cantidad de anémicos
+    - cantidad de diabéticos
+    - cantidad de fumadores
+    - cantidad de muertos
+
+El segundo histograma debe verse así: https://media.ada-school.org/5fcd3ac12b22eab4d301d819/61345ed31a244b00166eb22c/figure_1-9757dc9d-1ae7-47b3-b30b-ba9aa6afcfd5.png
+
+Tip:
+    Para graficar barras lado a lado puedes usar el argumento align='edge' de la función plt.bar y definir un ancho positivo y otro negativo para evitar sobreponerlos.
+
+
+---- PROYECTO INTEGRADOR PARTE 8 ----
+
+Usando el mismo DataFrame, realiza una gráfica usando subplots, que contenga gráficas de torta que represente las distribuciones de:
+
+    - Cantidad de anémicos
+    - Cantidad de diabéticos
+    - Cantidad de fumadores
+    - Cantidad de muertos
+
+La grafica debe verse similar a esta (no es necesario el mismo color)
+
+https://media.ada-school.org/5fcd3ac12b22eab4d301d819/61345ed31a244b00166eb22c/figure_2-32e72543-83e1-4fe3-9a16-80976778b67e.png
