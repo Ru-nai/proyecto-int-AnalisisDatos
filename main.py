@@ -5,6 +5,10 @@ import requests #PT4
 import sys #PT6
 import matplotlib.pyplot as plt #PT7
 import seaborn as sns #PT7
+from sklearn.manifold import TSNE
+import plotly.express as px #PT9
+import plotly.graph_objects as go #PT9
+
 
 
 def separate():
@@ -195,6 +199,7 @@ if __name__ == "__main__":
 
     plt.show()
 
+
     print("--- PROYECTO PT8: GRÁFICOS DE TORTA / DISTRIBUCIONES ---")
     # Mapeo de valores
     etiqueta_si_no = {0: 'No', 1: 'Sí'}
@@ -233,3 +238,48 @@ if __name__ == "__main__":
 
     plt.tight_layout()
     plt.show()
+
+    print("--- PROYECTO PT9: GRÁFICO DE DISPERSIÓN 3D ---")
+    # Eliminar columnas no necesarias
+    X = resultado.drop(columns=['DEATH_EVENT', 'edad_categorizada']).copy()
+
+    # Convertir columnas categóricas a variables dummy
+    X = pd.get_dummies(X, columns=['anaemia', 'diabetes', 'smoking'], drop_first=True)
+
+    # Exportar un array unidimensional de la columna objetivo
+    y = resultado['DEATH_EVENT'].values
+
+    # Realizar la reducción de dimensionalidad con t-SNE
+    X_embedded = TSNE(n_components=3, learning_rate='auto', init='random', perplexity=3).fit_transform(X)
+
+    # Crear un DataFrame con los resultados de t-SNE y la columna objetivo
+    df_tsne = pd.DataFrame({'Eje_X': X_embedded[:, 0], 'Eje_Y': X_embedded[:, 1], 'Eje_Z': X_embedded[:, 2], 'DEATH_EVENT': y})
+
+    # Mapear colores a las clases
+    colors = {'No': 'blue', 'Sí': 'red'}
+    df_tsne['color'] = df_tsne['DEATH_EVENT'].map(colors)
+
+    # Crear la figura
+    fig = go.Figure()
+
+    # Añadir el trazado de dispersión 3D a la figura
+    fig.add_trace(go.Scatter3d(
+        x=df_tsne['Eje_X'], y=df_tsne['Eje_Y'], z=df_tsne['Eje_Z'],
+        mode='markers',  # Estilo de marcador
+        marker=dict(
+            size=5,  # Tamaño de los marcadores
+            color=df_tsne['color'],  # Usar la nueva columna 'color' para la escala de colores
+            opacity=0.8  # Opacidad de los marcadores
+        )
+    ))
+
+    # Personalizar el diseño de la gráfica
+    fig.update_layout(
+        title='Parte 9: Analizando Distribuciones 3',  # Título de la gráfica
+        scene=dict(
+            xaxis_title='Eje_X',  # Etiqueta del eje x
+            yaxis_title='Eje_Y',  # Etiqueta del eje y
+            zaxis_title='Eje_Z'  # Etiqueta del eje z
+        )
+    )
+    fig.show()
