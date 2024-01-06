@@ -8,6 +8,9 @@ import seaborn as sns #PT7
 from sklearn.manifold import TSNE
 import plotly.express as px #PT9
 import plotly.graph_objects as go #PT9
+from sklearn.model_selection import train_test_split #PT10
+from sklearn.linear_model import LinearRegression #PT10
+from sklearn.metrics import mean_squared_error #PT10
 
 
 
@@ -283,3 +286,29 @@ if __name__ == "__main__":
         )
     )
     fig.show()
+
+    
+    print("--- PROYECTO PT10: Prediciendo Datos de una Columna")
+
+    # 1. Eliminar las columnas DEATH_EVENT, age y dad_categorizada
+    X = resultado.drop(columns=['DEATH_EVENT', 'age', 'edad_categorizada']).copy()
+    X = pd.get_dummies(X, columns=['anaemia', 'diabetes', 'smoking'], drop_first=True)
+
+    # 2.Columna 'age' como el vector Y
+    y = resultado['age'].copy()
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    # 2.1. Ajustar una regresión lineal
+    modelo_regresion = LinearRegression()
+    modelo_regresion.fit(X_train, y_train)
+
+    # 3. Predice las edades y compara
+    y_pred = modelo_regresion.predict(X_test)
+    resultados = pd.DataFrame({'Edad Real': y_test, 'Edad Predicha': y_pred})
+
+    # 4. Calcular el error cuadrático medio
+    mse = mean_squared_error(y_test, y_pred)
+
+    print("Resultados de la Regresión Lineal:")
+    print(resultados)
+    print("\nError Cuadrático Medio:", mse)
