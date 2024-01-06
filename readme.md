@@ -144,3 +144,13 @@ dónde X_embedded es un NumPy array de (299, 3)
 4. Realizar un gráfico de dispersión 3D con Plotly donde los puntos de cada clase (vivo o muerto) tienen un color asignado para así poder diferenciarlos. (Para esto debes usar el vector y)
 
 
+---- PROYECTO INTEGRADOR PARTE 10 ----
+
+Imagina que tenemos datos faltantes en la colúmna de edades, podríamos usar un modelo para estimar los valores faltantes en base a las otras colúmnas.
+
+Para este laboratorio:
+
+1. Elimina las colúmnas DEATH_EVENT, age y categoria_edad del dataframe para que sea la matriz X
+2. Ajusta una regresión lineal sobre el resto de colúmnas y usa la colúmna age como vector y
+3. Predice las edades y compara con las edades reales
+4. Calcula el error cuadrático medio.
