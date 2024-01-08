@@ -11,6 +11,9 @@ import plotly.graph_objects as go #PT9
 from sklearn.model_selection import train_test_split #PT10
 from sklearn.linear_model import LinearRegression #PT10
 from sklearn.metrics import mean_squared_error #PT10
+from sklearn.metrics import accuracy_score #PT11
+from sklearn.tree import DecisionTreeClassifier #PT11
+
 
 
 
@@ -315,4 +318,25 @@ if __name__ == "__main__":
 
 
     print("--- PROYECTO PT11: Modelos Basados en Árboles - Clasiciación 1")
-    
+    # 1. Gráfica - distribución de clases
+    plt.figure(figsize=(6, 4))
+    sns.countplot(x='DEATH_EVENT', data=resultado)
+    plt.title('Distribución de Clases - Parte 11')
+    plt.xlabel('DEATH_EVENT')
+    plt.ylabel('Número de Instancias')
+    plt.show()
+
+    # Eliminar 'categoria_edad' y 'death_event' y convierte las columnas categóricas a variables dummy para evitar errores
+    X = resultado.drop(columns=['DEATH_EVENT', 'edad_categorizada']).copy()
+    X = pd.get_dummies(X, columns=['anaemia', 'diabetes', 'high_blood_pressure', 'sex', 'smoking'], drop_first=True)
+    y = resultado['DEATH_EVENT'] #variable objetivo
+
+    # 2. Partición estratificada (conjunto de entrenamiento y test)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
+
+    # 3. Ajustar un árbol de decisión y predecir accuracy
+    modelo_arbol = DecisionTreeClassifier(random_state=42)
+    modelo_arbol.fit(X_train, y_train)
+    y_pred = modelo_arbol.predict(X_test)
+    accuracy = accuracy_score(y_test, y_pred)
+    print(f"Accuracy del árbol de decisión: {accuracy:.4f}")
