@@ -174,3 +174,20 @@ Nota:
 
     No olvides eliminar la colúmna categoria_edad.
 
+
+---- PROYECTO INTEGRADOR PARTE 12 ----
+
+Sobre el dataset ya particionado en conjuntos de entrenamiento y test, realiza lo siguiente:
+
+1. Ajusta un random forest
+
+2. Calcula su matriz de confusión
+
+3. Calcula F1-Score y compara con el accuracy
+    - Crees que el accuracy captura completamente el rendimiento del modelo en este caso o no es suficiente?
+
+4. Trata de cambiar los valores de los parámetros del random forest para conseguir el mejor resultado que puedas.
+
+Nota:
+    No olvides eliminar la colúmna categoria_edad.
+

@@ -13,6 +13,9 @@ from sklearn.linear_model import LinearRegression #PT10
 from sklearn.metrics import mean_squared_error #PT10
 from sklearn.metrics import accuracy_score #PT11
 from sklearn.tree import DecisionTreeClassifier #PT11
+from sklearn.ensemble import RandomForestClassifier #PT12
+from sklearn.metrics import confusion_matrix, f1_score #PT12
+
 
 
 
@@ -340,3 +343,48 @@ if __name__ == "__main__":
     y_pred = modelo_arbol.predict(X_test)
     accuracy = accuracy_score(y_test, y_pred)
     print(f"Accuracy del árbol de decisión: {accuracy:.4f}")
+
+
+    print("--- PROYECTO PT12: Modelos Basados en Árboles - Clasifiación 2")
+    # Verificar si 'edad_categorizada' está presente antes de intentar eliminarla
+    if 'edad_categorizada' in X_train.columns:
+        X_train = X_train.drop(columns=['edad_categorizada'])
+    if 'edad_categorizada' in X_test.columns:
+        X_test = X_test.drop(columns=['edad_categorizada'])
+
+    # 1. Ajusta un Random Forest
+    modelo_rf = RandomForestClassifier(random_state=42)
+    modelo_rf.fit(X_train, y_train)
+    y_pred_rf = modelo_rf.predict(X_test)
+
+    # 2. Calcular matriz de confusion y visualizarla
+    matriz_confusion = confusion_matrix(y_test, y_pred_rf)
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(matriz_confusion, annot=True, fmt='d', cmap='Blues', cbar=False)
+    plt.title('Matriz de Confusión - Parte 12')
+    plt.xlabel('Valores de Predicción')
+    plt.ylabel('Valores Reales')
+    tp, fp, fn, tn = matriz_confusion.ravel()
+    plt.text(-0.13, 0, f'TP = {tp}\nFP = {fp}\nFN = {fn}\nTN = {tn}', 
+            horizontalalignment='center', verticalalignment='center', 
+            bbox=dict(facecolor='white', alpha=0.7))
+
+    plt.show()
+
+    # 3. Calcula F1-Score y compara el accuracy
+    accuracy_rf = accuracy_score(y_test, y_pred_rf)
+    f1_rf = f1_score(y_test, y_pred_rf, pos_label='Sí')
+
+    print(f"Accuracy del Random Forest: {accuracy_rf:.4f}")
+    print(f"F1-Score del Random Forest: {f1_rf:.4f}")
+    if accuracy_rf > f1_rf:
+        print("El modelo Random Forest tiene una mayor accuracy en comparación con F1-Score")
+    else:
+        print("F1-Score proporciona información adicional sobre el rendimiento del modelo")
+
+    '''
+    - Crees que el accuracy captura completamente el rendimiento del modelo en este caso o no es suficiente?
+    Puede ser que no, ya que el dataset presenta un desbalance entre los 'Sí' y los 'No', 
+    y el hecho de que F1-Score sea menor al accuracy puede estar sugiriendo que no se está logrando
+    un equilibrio de precisión en el modelo
+    '''
